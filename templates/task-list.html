@@ -1,0 +1,134 @@
+<section id="task-list" data-bind="with: taskList, visible: taskList.visible">
+
+        <div id="task-list-tabs" class="col s12">
+            <ul class="tabs">
+                <li class="tab col s6"><a class="active" href="#user-tasks">Tasks</a></li>
+                <li class="tab col s6"><a href="#time-reports">Time Reports</a></li>
+            </ul>
+        </div>
+        <div id="user-tasks" class="tab-content col s12">
+            <div class="list" data-bind="foreach: userTasks">
+                <ul class="collection with-header">
+                    <li class="collection-header">
+                        <h5>
+                            <span class="project-name" data-bind="text: name, click: function(){$parents[0].openExternalLink(this)}"></span>
+                        </h5>
+                    </li>
+                    <!-- ko foreach: tasks -->
+                        <li class="collection-item">
+                            <div class="row valign-wrapper">
+                                <div class="col s10 task-name" data-bind="text: name, click: function(){$parents[1].openExternalLink($data)}">
+                                </div>
+                                <div class="col s2">
+                                    <a href="#" class="secondary-content btn-small" data-bind="click: function(){$parents[1].showTimeReport($parents[1], $data, $parents[0])}">
+                                        timer
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    <!-- /ko -->
+                </ul>
+            </div>
+        </div>
+
+        <div id="time-reports" class="tab-content col s12">
+            <div class="date-panel row">
+                <div class="col s2">
+                    <a href="#" data-bind="click: decreaseDate">
+                        <i class="material-icons">keyboard_arrow_left</i>
+                    </a>
+                </div>
+                <div class="col s8 center-align" data-bind="text: dateFormatted"></div>
+                <div class="col s2 right-align">
+                    <a href="#" data-bind="click: increaseDate">
+                        <i class="material-icons">keyboard_arrow_right</i>
+                    </a>
+                </div>
+            </div>
+            <div class="time-reports-collection" data-bind="foreach: timeReportsList">
+                <ul class="collection with-header">
+                    <li class="collection-header">
+                        <h5>
+                            <span class="project-name" data-bind="text: name, click: function(){$parents[0].openExternalLink(this)}"></span>
+                        </h5>
+                    </li>
+                    <!-- ko if: typeof tasks !== 'undefined' -->
+                    <!-- ko foreach: tasks -->
+                    <!-- ko foreach: time_records -->
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col s10 summary">
+                                    <span data-bind="text: summary"></span>
+                                </div>
+                                <div class="col s2 right-align report-time">
+                                    <span data-bind="text: $parents[2].convertDecimalToString(value)"></span>
+                                </div>
+                            </div>
+                            <div class="row additional-info">
+                                <div class="col s8">
+                                    <h6 class="task-name" data-bind="text: $parents[0].name, click: function(){$parents[2].openExternalLink($parents[0])}"></h6>
+                                </div>
+                                <div class="col s4 job-type">
+                                    <h6 class="right-align" data-bind="text: $parents[2].getJobTypeName(job_type_id)"></h6>
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <div>
+                                    <a class="btn-small" data-bind="click: function(){ $parents[2].editTimeReport(this, $parents[0], $parents[1]) }">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                    <a class="btn-small" data-bind="click: function(){ $parents[2].deleteTimeReport(this, $parents[1]) }">
+                                        <i class="material-icons">delete</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- /ko -->
+
+                    <!-- ko if: typeof time_records !== 'undefined' -->
+                    <!-- ko foreach: time_records -->
+                    <li class="collection-item">
+                        <div class="row">
+                            <div class="col s10 summary">
+                                <span data-bind="text: summary"></span>
+                            </div>
+                            <div class="col s2 right-align report-time">
+                                <span data-bind="text: $parents[1].convertDecimalToString(value)"></span>
+                            </div>
+                        </div>
+                        <div class="row additional-info">
+                            <div class="col s4 offset-s8 job-type">
+                                <h6 class="right-align" data-bind="text: $parents[1].getJobTypeName(job_type_id)"></h6>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <div>
+                                <a class="btn-small" data-bind="click: function(){ $parents[1].deleteTimeReport(this, $parents[1]) }">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                    <!-- /ko -->
+
+                </ul>
+            </div>
+
+            <div id="time-reports-total">
+                <div class="row">
+                    <div class="col s6">
+                        Count:
+                        <span data-bind="text: count">1</span>
+                    </div>
+                    <div class="col s6 right-align">
+                        Total:
+                        <span data-bind="text: total">1:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</section>

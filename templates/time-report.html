@@ -1,0 +1,44 @@
+<section id="time-report" data-bind="with: timeReport, visible: timeReport.visible">
+    <div class="info-row">
+        <div class="row">
+            <div class="col s3">Time</div>
+            <div class="col s9">
+                <input data-bind="textInput: time">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s3">Job Type</div>
+            <div class="col s9">
+                <select class="browser-default" data-bind="options: $root.jobTypes, optionsText: 'name', optionsValue: 'id', value: jobType"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s3">Project</div>
+            <div class="col s9" data-bind="text: projectName"></div>
+        </div>
+        <div class="row">
+            <div class="col s3">Task</div>
+            <div class="col s9" data-bind="text: taskName"></div>
+        </div>
+        <div class="row">
+            <div class="col s3">Description</div>
+            <div class="col s9">
+                <textarea class="materialize-textarea" rows="3" data-bind="textInput: description"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="buttons-row">
+        <div class="row">
+            <div class="col s6">
+                <a class="waves-effect waves-light btn" data-bind="click: backToTaskList">Back</a>
+            </div>
+            <div class="col s6 right-align">
+                <button class="btn waves-effect waves-light" type="button" data-bind="click: save">Save</button>
+                <button class="btn waves-effect waves-light" type="button" data-bind="click: startTrackTime">
+                    Start
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
