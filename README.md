@@ -1,6 +1,6 @@
 # ActiveCollab timer
 
-Cross-platform timer for ActiveCollab (Linux, Windows, maybe MacOS)
+Cross-platform timer for [ActiveCollab](https://activecollab.com/) (Linux, Windows, maybe MacOS)
 
 ## Getting Started
 
