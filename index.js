@@ -14,7 +14,10 @@ function createWindow () {
     width: 478,
     height: 600,
     title: "Timer",
-    icon: iconPath
+    icon: iconPath,
+    webPreferences: {
+	nodeIntegration: true
+    }
   });
 
   // and load the index.html of the app.
