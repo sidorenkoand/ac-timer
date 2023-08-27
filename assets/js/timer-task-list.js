@@ -134,8 +134,7 @@ window.timer.taskList = {
      * @param {Object} task
      */
     openExternalLink: function (task) {
-        var shell = require('electron').shell;
-        shell.openExternal(this.parent.request.createAcLink(task.url_path));
+        window.electron.openExtLink(this.parent.request.createAcLink(task.url_path));
     },
 
     /**

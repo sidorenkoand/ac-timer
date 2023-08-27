@@ -1,6 +1,6 @@
 {
   "name": "timer",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,11 +17,10 @@
       ]
     }
   },
-  "author": "",
+  "author": "<Andrii Sydorenko> sidorenkoand@gmail.com",
   "license": "ISC",
-  "devDependencies": {
-    "electron": "^7.2.4",
-    "electron-builder": "^20.38.4",
-    "electron-packager": "^13.0.1"
+  "dependencies": {
+    "electron": "^19.0.6",
+    "electron-packager": "^17.1.2"
   }
 }
