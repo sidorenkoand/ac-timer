@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu, shell } = require('electron');
 let path = require('path');
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -16,7 +16,7 @@ function createWindow () {
     title: "Timer",
     icon: iconPath,
     webPreferences: {
-	nodeIntegration: true
+      preload: path.join(__dirname, 'preload.js')
     }
   });
 
@@ -78,7 +78,62 @@ app.on('activate', () => {
   }
 });
 
+ipcMain.handle('initTray', async (event) => {
+  initTray();
+});
 
+ipcMain.handle('setAppActive', async (event, isActive) => {
+  setAppActive(isActive);
+})
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+ipcMain.handle('openExtLink', async (event, link) => {
+  openExtLink(link);
+})
+
+/**
+ * Change App view if timer is turned on/off
+ *
+ * @param {Boolean} isActive
+ */
+function setAppActive (isActive) {
+  let icon = isActive ? 'assets/icons/timer-active.png' : 'assets/icons/timer.png',
+      icon_path = path.join(__dirname, icon);
+
+  tray.setImage(icon_path);
+  win.setIcon(icon_path);
+}
+
+/**
+ * Init tray icon
+ *
+ * @private
+ */
+function initTray () {
+  let iconPath = path.join(__dirname, 'assets/icons/timer.png');
+
+  tray = new Tray(iconPath);
+
+  let contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Show App', click: function () {
+        win.show();
+      }
+    },
+    {
+      label: 'Quit', click: function () {
+        win.isQuiting = true;
+        win.close();
+      }
+    }
+  ]);
+
+  tray.setContextMenu(contextMenu);
+}
+
+/**
+ *
+ * @param {String} link
+ */
+function openExtLink (link) {
+  shell.openExternal(link);
+}

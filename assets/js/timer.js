@@ -30,12 +30,12 @@ window.timer = {
      * Constructor method
      */
     init: function(){
-        var self = this;
+        let self = this;
 
         this.request = window.request;
         this.timeConverter = window.timeConverter;
 
-        this._initTray();
+        window.electron.initTray();
 
         this.isAuth.subscribe(function(newValue){
             if(newValue){
@@ -62,36 +62,6 @@ window.timer = {
         } else {
             self.showSection('login');
         }
-    },
-
-    /**
-     * Init tray icon
-     *
-     * @private
-     */
-    _initTray: function () {
-        var {remote} = require('electron'),
-            {Tray, Menu} = remote,
-            path = require('path'),
-            iconPath = path.join(__dirname, 'assets/icons/timer.png'),
-            win = require('electron').remote.getCurrentWindow();
-        this.tray = new Tray(iconPath);
-
-        var contextMenu = Menu.buildFromTemplate([
-            {
-                label: 'Show App', click: function () {
-                    win.show();
-                }
-            },
-            {
-                label: 'Quit', click: function () {
-                    win.isQuiting = true;
-                    win.close();
-                }
-            }
-        ]);
-
-        this.tray.setContextMenu(contextMenu);
     },
 
     /**
@@ -165,10 +135,6 @@ window.timer = {
      * @param {Boolean} isActive
      */
     setAppActive: function (isActive) {
-        var icon = isActive ? 'assets/icons/timer-active.png' : 'assets/icons/timer.png';
-            path = require('path').join(__dirname, icon);
-
-        this.tray.setImage(path);
-        require('electron').remote.getCurrentWindow().setIcon(path);
+        window.electron.setAppActive(isActive);
     }
 };
