@@ -69,8 +69,10 @@ ul .row{
     color: grey;
 }
 #task-list .task-name{
-    cursor: pointer;
     padding-right: 2px;
+}
+.task-name {
+    cursor: pointer;
 }
 .project-name{
     cursor: pointer;

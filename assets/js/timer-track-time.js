@@ -97,6 +97,14 @@ window.timer.trackTime = {
         this._stopTimer();
     },
 
+    openTask: function () {
+        window.electron.openExtLink(this.parent.request.createAcLink(this.timeReport.task.url_path));
+    },
+
+    openProject: function () {
+        window.electron.openExtLink(this.parent.request.createAcLink(this.timeReport.project.url_path));
+    },
+
     /**
      * Start the timer
      *
