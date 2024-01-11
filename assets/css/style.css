@@ -1,101 +1,60 @@
+.container-fluid {
+    --bs-gutter-x: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+.row {
+    --bs-gutter-x: 0;
+}
 html, body{
     height: 100%;
+    background-color: var(--main-bg-color);
 }
-main{
-    position: absolute;
-    top: 50px;
-    bottom: 0;
-    left: 0;
-    right: 0;
+:root {
+    --main-bg-color: #fafafa;
 }
-main section{
-    height: 100%;
+.header {
+    background-color: #e1f5fe;
+    padding: 5px;
 }
-header h5{
-    margin: 0.874666667rem 0 0.874666667rem 0;
+.header__row {
+    align-items: center;
 }
-.info-row{
-    position: absolute;
-    top: 0;
-    bottom: 60px;
-    left: 0;
-    right: 0;
+.header__row>* {
+    padding-right: 0;
+    padding-left: 0;
 }
-.buttons-row{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-ul .row{
+.header__title {
     margin-bottom: 0;
 }
-.col .row {
-    margin-left: 0;
-    margin-right: 0;
+.projects-list {
+    background-color: var(--main-bg-color);
+    padding-top: 5px;
 }
-.collection-item .row .col{
-    padding: 0;
+.projects-list__tabs {
+    margin-bottom: 10px;
 }
-#task-list .collection .collection-header{
-    background-color: #fafafa;
+.projects-list__nav-item {
+    width: 50%;
+    text-align: center;
 }
-.collection .collection-item{
-    padding: 10px 15px;
-    background-color: #fafafa;
+.project-item {
+    margin-bottom: 10px;
 }
-.collection.with-header .collection-item {
-    padding-left: 15px;
-}
-#time-reports {
-    bottom: 31px;
-}
-#time-reports .collection-item{
-    position: relative;
-}
-#time-reports .collection-item .buttons{
-    display: none;
-}
-#time-reports .collection-item:hover .buttons{
-    display: block;
-}
-#time-reports .buttons {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-}
-#time-reports .additional-info h6{
-    color: grey;
-}
-#task-list .task-name{
-    padding-right: 2px;
-}
-.task-name {
-    cursor: pointer;
-}
-.project-name{
-    cursor: pointer;
-}
-.btn-small {
-    height: 20px;
-    line-height: 20px;
-    font-size: 13px;
-}
-.date-panel {
-    margin-top: 10px;
+.project-item__title {
     margin-bottom: 0;
 }
-
-.tab-content {
-    position: absolute;
-    bottom: 0px;
-    left: 0;
-    right: 0;
-    top: 50px;
-    overflow: auto;
+.date-switcher {
+    align-items: center;
+    margin-bottom: 10px;
 }
-#time-reports-total{
+.date-switcher__button {
+    padding: 0 5px 0 5px;
+}
+.time-reports-project {
+    margin-bottom: 10px;
+}
+.time-reports__total {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -105,18 +64,46 @@ ul .row{
     color: grey;
     font-weight: 600;
 }
-#time-reports-total .row{
-    margin-bottom: 0;
+.time-reports-item__buttons {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
-h5{
-    margin: 5px 0;
+.time-reports-task:hover .time-reports-item__buttons {
+    display: block;
 }
-
-#track-time .time-panel{
+.buttons-panel {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 0 10px 10px;
+}
+.edit-time-report {
+    padding: 15px;
+}
+.track-time__time{
     height: 240px;
+    padding-top: 60px;
 }
-#track-time .time-panel h1{
+.track-time__title{
     color: white;
-    margin: 0 auto;
     font-size: 90px;
+}
+.track-time__info {
+    padding: 15px;
+}
+.red {
+    background-color: #F44336;
+}
+.blue {
+    background-color: #2196F3;
+}
+.clickable {
+    cursor: pointer;
+}
+.login-form {
+    padding: 15px;
+    margin-top: 20px;
 }
