@@ -17,8 +17,6 @@ if (require('electron-squirrel-startup')) {
 let mainWindow: BrowserWindow
 let tray: Tray
 
-
-
 const createWindow = async () => {
   const iconPath = path.join(__dirname, '../../assets/icons/timer.png')
   // Create the browser window.
@@ -37,6 +35,11 @@ const createWindow = async () => {
   } else {
     await mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
   }
+
+  mainWindow.on('minimize', (event: any) => {
+    event.preventDefault();
+    mainWindow.hide();
+  });
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
