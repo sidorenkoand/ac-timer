@@ -64,15 +64,6 @@ const trackedTimeRecordSlice = createSlice({
       } as TimeRecord
     }
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(saveState.fulfilled, (state, action) => {
-        // Process saveState
-      })
-      .addCase(saveState.rejected, (state, action) => {
-        // Process saveState
-      });
-  }
 })
 
 export const {
