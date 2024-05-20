@@ -8,7 +8,7 @@ import TrackedTimeRecordReducer from './slices/tracked-timerecord'
 import ActiveTrackingReducer from './slices/active-tracking'
 import ActiveTabReducer from './slices/active-tab'
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     isAuth: isAuthReducer,
     projectsTasks: projectsTasksReducer,
@@ -22,3 +22,6 @@ export const store = configureStore({
 })
 
 export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch;
+
+export default store;

@@ -62,6 +62,13 @@ const openExternalLink = async (instance: Task | Project) => {
   getElectronApi()?.openExtLink(url);
 }
 
+const setAppActive = async (state: boolean) => {
+  if (!getElectronApi()) {
+    console.error('electron not found');
+  }
+  getElectronApi()?.setAppActive(state);
+}
+
 const getElectronApi = (): IElectronAPI | undefined => {
   if (!window.electron) {
     console.error('window.electron not found', window.electron, window)
@@ -69,4 +76,4 @@ const getElectronApi = (): IElectronAPI | undefined => {
   return window.electron;
 }
 
-export { checkIsAuth, getUserId, setToken, getToken, setAcUrl, getAcUrl, clear, openExternalLink }
+export { checkIsAuth, getUserId, setToken, getToken, setAcUrl, getAcUrl, clear, openExternalLink, setAppActive }

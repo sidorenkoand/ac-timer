@@ -1,10 +1,29 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 import { type RootState } from '../store'
 import type TimeRecord from '../../models/TimeRecord'
 import type Task from '../../models/Task'
-import { decimalToTime, TimeConverter } from '../../services/time-converter'
+import { decimalPlusMinutes } from '../../services/time-converter'
 import saveTimeRecordEndpoint from '../../services/active-collab/endpoints/save-time-record'
+
+export const saveState = createAsyncThunk<
+  void,
+  void,
+  { state: RootState }
+>(
+  'state/saveState',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const timeRecord = state.trackedTimeRecord.value;
+    if (timeRecord) {
+      try {
+        await saveTimeRecordEndpoint(timeRecord)
+      } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+      }
+    }
+  }
+);
 
 interface TimeRecordState {
   value?: TimeRecord
@@ -24,26 +43,11 @@ const trackedTimeRecordSlice = createSlice({
     resetTimeRecord: (state) => {
       state.value = undefined
     },
-    addMinute: (state) => {
-      if (state.value) {
-        state.value.add_minutes ? state.value.add_minutes++ : state.value.add_minutes = 1
-      }
-    },
-    applyAddMinutes: (state) => {
+    applyAddMinutes: (state, action: PayloadAction<number>) => {
       if (!state.value) {
         return
       }
-      const converter = new TimeConverter()
-      if (!state.value.value_save) {
-        state.value.value_save = decimalToTime(state.value.value)
-      }
-      const minutes = converter.setTime(state.value.value_save).getMinutes()
-      state.value.value_save = converter.setMinutes(minutes + Number(state.value.add_minutes)).getTime()
-    },
-    saveState: (state) => {
-      if (state.value) {
-        saveTimeRecordEndpoint(state.value).then()
-      }
+      state.value.value = decimalPlusMinutes(state.value.value, action.payload).getDecimal()
     },
     createNew: (state, action: PayloadAction<{task: Task, job_type_id: number}>) => {
       const task = action.payload.task
@@ -55,28 +59,27 @@ const trackedTimeRecordSlice = createSlice({
         task,
         summary: '',
         value: 0,
-        value_save: '',
         job_type_id: job_type_id,
         record_date: Math.floor(Date.now() / 1000),
-        add_minutes: 0
       } as TimeRecord
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(saveState.fulfilled, (state, action) => {
+        // Process saveState
+      })
+      .addCase(saveState.rejected, (state, action) => {
+        // Process saveState
+      });
   }
 })
 
 export const {
   set,
   resetTimeRecord,
-  addMinute,
   applyAddMinutes,
-  saveState,
   createNew
 } = trackedTimeRecordSlice.actions
 export const getTrackedTimeRecord = () => useSelector((state: RootState) => state.trackedTimeRecord.value)
-export const getTrackedTime = () => useSelector((state: RootState) => {
-  const value = state.trackedTimeRecord.value?.value ?? 0
-  const add_minutes = state.trackedTimeRecord.value?.add_minutes ?? 0
-  const converter = new TimeConverter()
-  return converter.setMinutes(converter.setDecimal(value).getMinutes() + add_minutes).getTime()
-})
 export default trackedTimeRecordSlice.reducer

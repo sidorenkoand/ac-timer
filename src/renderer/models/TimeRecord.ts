@@ -9,8 +9,6 @@ export default interface TimeRecord {
   task: Task | undefined
   summary: string
   value: number
-  value_save: string
   job_type_id: number
   record_date: number
-  add_minutes: number
 }

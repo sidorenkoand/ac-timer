@@ -109,7 +109,9 @@ const setAppActive = (isActive: boolean) => {
   mainWindow.setIcon(icon_path)
 }
 
-ipcMain.handle('setAppActive', (event, isActive: boolean) => setAppActive(isActive))
+ipcMain.handle('setAppActive', (event, isActive: boolean) => {
+  setAppActive(isActive)
+})
 ipcMain.handle('openExtLink', (event, link: string) => shell.openExternal(link))
 ipcMain.handle('setCredentials', (event, token: string, url: string) => setCredentials(token, url))
 ipcMain.handle('getCredentials', () => { return getCredentialsFromStorage() })

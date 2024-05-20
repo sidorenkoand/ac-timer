@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
-import { decimalToTime } from '../services/time-converter'
+import { AppDispatch } from '../store/store';
+import { decimalToTime, timeToDecimal } from '../services/time-converter'
 import {
   resetTimeRecord,
   set as setTrackedTimeRecord,
@@ -12,26 +13,29 @@ import { setActiveTracking } from '../store/slices/active-tracking'
 import { getDateFormatted } from '../services/active-collab/client'
 
 const TimeRecordEdit = (props: { timeRecord: TimeRecord }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const timeRecord = props.timeRecord
   const jobTypesList = getJobTypesList() ?? {}
 
   const mutableTimeRecord = { ...timeRecord } satisfies TimeRecord
-  if (!mutableTimeRecord.value_save) {
-    mutableTimeRecord.value_save = decimalToTime(timeRecord.value)
-  }
 
   const backToTaskList = () => {
     dispatch(resetTimeRecord())
   }
-  const save = () => {
+  const save = async () => {
     dispatch(setTrackedTimeRecord(mutableTimeRecord))
-    dispatch(saveState())
-    dispatch(resetTimeRecord())
+    const saveResultAction = await dispatch(saveState())
+    if (saveState.fulfilled.match(saveResultAction)) {
+      dispatch(resetTimeRecord())
+    }
   }
   const startTrackTime = () => {
     dispatch(setTrackedTimeRecord(mutableTimeRecord))
     dispatch(setActiveTracking())
+  }
+
+  const updateTime = (value: string) => {
+    mutableTimeRecord.value = timeToDecimal(value)
   }
 
   return (
@@ -42,8 +46,8 @@ const TimeRecordEdit = (props: { timeRecord: TimeRecord }) => {
           <div className="col-9">
             <input
               className="form-control"
-              defaultValue={mutableTimeRecord.value_save}
-              onChange={(e) => mutableTimeRecord.value_save = e.target.value}/>
+              defaultValue={decimalToTime(mutableTimeRecord.value)}
+              onChange={(e) => updateTime(e.target.value)}/>
           </div>
         </div>
         <div className="mb-3 row">
@@ -96,7 +100,7 @@ const TimeRecordEdit = (props: { timeRecord: TimeRecord }) => {
           </div>
           <div className="col-6 text-end btn-group">
             <button className="btn btn-primary" type="button" onClick={() => { save() }}>
-              Done <i className="bi-save"></i>
+              Save <i className="bi-save"></i>
             </button>
             <button className="btn btn-success" type="button" onClick={() => { startTrackTime() }}>
               Track <i className="bi-stopwatch"></i>

@@ -13,9 +13,16 @@ html, body{
 :root {
     --main-bg-color: #fafafa;
 }
+#root {
+    padding-top: 43px;
+}
 .header {
     background-color: #e1f5fe;
     padding: 5px;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    top: 0;
 }
 .header__row {
     align-items: center;
@@ -50,6 +57,9 @@ html, body{
 }
 .date-switcher__button {
     padding: 0 5px 0 5px;
+}
+.time-reports {
+    padding-bottom: 40px;
 }
 .time-reports-project {
     margin-bottom: 10px;

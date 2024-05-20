@@ -25,9 +25,6 @@ const putReq = async (url: string, data: object) => {
     throw new Error(`Response error: ${response.toString()}`)
   }
 
-  // ActiveCollab API needs this delay, otherwise it returns cached value
-  await delay(800)
-
   return await response.json()
 }
 
@@ -85,12 +82,6 @@ const getApiUrl = async (uri: string = ''): Promise<string> => {
 
 const getDateFormatted = (date: Date): string => {
   return date.toISOString().split('T')[0]
-}
-
-const delay = async (milliseconds: number) => {
-  return await new Promise(resolve => {
-    setTimeout(resolve, milliseconds)
-  })
 }
 
 export { postReq, putReq, deleteReq, getReq, getDateFormatted }

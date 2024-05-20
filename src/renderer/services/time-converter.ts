@@ -1,6 +1,17 @@
+export function decimalPlusMinutes (decimal: number, newMinutes: number) {
+  const converter = new TimeConverter()
+  const minutes = converter.setDecimal(decimal).getMinutes()
+  return converter.setMinutes(minutes + newMinutes)
+}
+
 export function decimalToTime (decimal: number) {
   const converter = new TimeConverter()
   return converter.setDecimal(decimal).getTime()
+}
+
+export function timeToDecimal (time: string) {
+  const converter = new TimeConverter()
+  return converter.setTime(time).getDecimal()
 }
 
 export class TimeConverter {

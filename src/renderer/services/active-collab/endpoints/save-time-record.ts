@@ -1,5 +1,6 @@
 import { postReq, putReq } from '../client'
 import type TimeRecord from '../../../models/TimeRecord'
+import { decimalToTime } from '../../time-converter';
 
 /**
  * Create time record (time report)
@@ -14,12 +15,12 @@ export const saveTimeRecord = async (timeRecord: TimeRecord) => {
 
   return timeRecord.id
     ? await putReq(`${url}/${timeRecord.id}`, {
-      value: timeRecord.value_save,
+      value: decimalToTime(timeRecord.value),
       job_type_id: timeRecord.job_type_id,
       summary: timeRecord.summary
     })
     : await postReq(url, {
-      value: timeRecord.value_save,
+      value: decimalToTime(timeRecord.value),
       job_type_id: timeRecord.job_type_id,
       summary: timeRecord.summary,
       task_id: timeRecord.task.id,
