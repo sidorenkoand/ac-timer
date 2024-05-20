@@ -22,8 +22,10 @@ const TimeRecordsList = () => {
     isPlusDay ? dispatch(plusDay()) : dispatch(minusDay())
   }
 
+  const timeRecords = projectTimeRecords();
+
   return (
-    <div className="time-reports tab-content">
+    <div className="time-reports dynamic">
       <div className="date-switcher row">
         <div className="col-2 date-switcher__button">
           <a
@@ -40,8 +42,11 @@ const TimeRecordsList = () => {
           </a>
         </div>
       </div>
-      <List projects={projectTimeRecords()}/>
-      <Total projects={projectTimeRecords()}/>
+
+      <div className="dynamic">
+      <List projects={timeRecords}/>
+      </div>
+      <Total projects={timeRecords}/>
     </div>
   )
 }

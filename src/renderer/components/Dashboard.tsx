@@ -8,8 +8,8 @@ const Dashboard = () => {
   const activeTab = getActiveTab()
 
   return (
-    <section className="projects-list">
-      <div className="projects-list__tabs">
+    <section className="content-wrapper">
+      <div className="tabs">
         <ul className="nav nav-tabs">
           <li className="projects-list__nav-item nav-item" onClick={() => dispatch(switchToTasks())}>
             <a className={"nav-link " + (activeTab === 'tasks' ? 'active' : '')} aria-current="page" href="#">Tasks</a>
@@ -20,7 +20,7 @@ const Dashboard = () => {
         </ul>
       </div>
 
-      {activeTab === 'tasks' ? <UserTasks/> : null}
+      {activeTab === 'tasks' ? <div className="dynamic"><UserTasks/></div> : null}
       {activeTab === 'reports' ? <TimeRecordsList/> : null}
 
     </section>

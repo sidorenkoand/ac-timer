@@ -53,11 +53,10 @@ export class TimeConverter {
    * Return time in string format
    */
   public getTime () {
-    let time = ''
     const hours = Math.trunc(this.minutes / 60)
     const minutes = this.minutes - hours * 60
 
-    time = hours + ':'
+    let time = hours + ':'
     time = time + (minutes > 9 ? minutes.toString() : '0' + minutes)
 
     return time
