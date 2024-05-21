@@ -8,7 +8,7 @@ const Dashboard = () => {
   const activeTab = getActiveTab()
 
   return (
-    <section className="content-wrapper">
+    <section className="content-wrapper flex-column">
       <div className="tabs">
         <ul className="nav nav-tabs">
           <li className="projects-list__nav-item nav-item" onClick={() => dispatch(switchToTasks())}>

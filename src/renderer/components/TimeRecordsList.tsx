@@ -4,19 +4,22 @@ import type Project from '../models/Project'
 import type Task from '../models/Task'
 import type TimeRecord from '../models/TimeRecord'
 import { minusDay, plusDay, getRecordsDate } from '../store/slices/records-date'
-import { projectTimeRecords } from '../store/slices/projects-timerecords'
+import { projectTimeRecords, updateState } from '../store/slices/projects-timerecords'
 import { getJobTypesList } from '../store/slices/job-types'
 import { getDateFormatted } from '../services/active-collab/client'
 import deleteTimeRecord from '../services/active-collab/endpoints/delete-time-record'
 import { decimalToTime } from '../services/time-converter'
-import useUpdateProjectTimeRecords from '../hooks/useUpdateProjectTimeRecords'
 import { set as setTrackingTimeRecord } from '../store/slices/tracked-timerecord'
-import { reset as resetProjectsTimerecords } from '../store/slices/projects-timerecords'
+import { AppDispatch } from '../store/store';
+import {useEffect} from "react";
 
 const TimeRecordsList = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const date = getRecordsDate()
-  useUpdateProjectTimeRecords(date)
+
+  useEffect(() => {
+    dispatch(updateState())
+  }, [date]);
 
   const changeDay = async (isPlusDay: boolean) => {
     isPlusDay ? dispatch(plusDay()) : dispatch(minusDay())
@@ -25,7 +28,7 @@ const TimeRecordsList = () => {
   const timeRecords = projectTimeRecords();
 
   return (
-    <div className="time-reports dynamic">
+    <div className="flex-column dynamic">
       <div className="date-switcher row">
         <div className="col-2 date-switcher__button">
           <a
@@ -64,13 +67,20 @@ const List = (props: { projects: Project[] }) => {
           {Array.isArray(project.tasks)
             ? project.tasks.map((task: Task) => {
               return task.time_records.map((timeRecord: TimeRecord) => {
-                return <Item key={timeRecord.id} project={project} task={task} timeRecord={timeRecord}/>
+                return <Item
+                  key={timeRecord.id}
+                  project={project}
+                  task={task}
+                  timeRecord={timeRecord}/>
               })
             })
             : ''}
           {Array.isArray(project.time_records)
             ? project.time_records.map((timeRecord: TimeRecord) => {
-              return <Item key={timeRecord.id} project={project} timeRecord={timeRecord}/>
+              return <Item
+                key={timeRecord.id}
+                project={project}
+                timeRecord={timeRecord}/>
             })
             : ''}
         </ul>
@@ -80,7 +90,7 @@ const List = (props: { projects: Project[] }) => {
 }
 
 const Item = (props: { project: Project, timeRecord: TimeRecord, task?: Task }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const jobTypes = getJobTypesList()
 
   const project = props.project
@@ -93,11 +103,12 @@ const Item = (props: { project: Project, timeRecord: TimeRecord, task?: Task }) 
     timeRecord.project = project
     dispatch(setTrackingTimeRecord(timeRecord))
   }
+
   const deleteRecord = (timeRecord: TimeRecord, project: Project) => {
     const timeRecordMutable = {...timeRecord} as TimeRecord
     timeRecordMutable.project = project
     deleteTimeRecord(timeRecordMutable).then(() => {
-      dispatch(resetProjectsTimerecords())
+      dispatch(updateState())
     })
   }
 

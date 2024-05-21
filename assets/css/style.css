@@ -6,6 +6,10 @@
 .row {
     --bs-gutter-x: 0;
 }
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
 html, body{
     height: 100%;
     background-color: var(--main-bg-color);
@@ -14,8 +18,6 @@ html, body{
     --main-bg-color: #fafafa;
 }
 #root {
-    display: flex;
-    flex-direction: column;
     height: 100vh;
 }
 .header {
@@ -37,8 +39,6 @@ html, body{
     padding-top: 5px;
     flex: 1;
     overflow: auto;
-    display: flex;
-    flex-direction: column;
 }
 .tabs {
     margin-bottom: 10px;
@@ -63,10 +63,6 @@ html, body{
 }
 .date-switcher__button {
     padding: 0 5px 0 5px;
-}
-.time-reports {
-    display: flex;
-    flex-direction: column;
 }
 .time-reports-project {
     margin-bottom: 10px;

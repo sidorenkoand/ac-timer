@@ -94,7 +94,7 @@ const TimeRecordEdit = (props: { timeRecord: TimeRecord }) => {
       <div className="buttons-panel">
         <div className="row">
           <div className="col-6">
-            <a className="btn btn-warning" onClick={() => { backToTaskList() }}>
+            <a className="btn btn-primary" onClick={() => { backToTaskList() }}>
               <i className="bi-backspace"></i> Back
             </a>
           </div>
