@@ -12,7 +12,7 @@ import {
 import { setNotActiveTracking } from '../store/slices/active-tracking'
 import { decimalPlusMinutes } from '../services/time-converter';
 
-const MINUTE_MILLISECONDS = 6000;
+const MINUTE_MILLISECONDS = 60000;
 
 const TimeRecordTrack = (props: { timeRecord: TimeRecord }) => {
   const dispatch = useDispatch<AppDispatch>()
