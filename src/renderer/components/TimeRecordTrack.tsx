@@ -76,7 +76,7 @@ const TimeRecordTrack = (props: { timeRecord: TimeRecord }) => {
           <div
             className="col-9 task-name clickable"
             onClick={() => timeRecord.task ? openExternalLink(timeRecord.task) : ''}
-          >{timeRecord.task?.name}</div>
+          >{`#${timeRecord.task?.task_number}: ${timeRecord.task?.name}`}</div>
         </div>
       </div>
 

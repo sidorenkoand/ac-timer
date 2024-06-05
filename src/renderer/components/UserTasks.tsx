@@ -46,7 +46,9 @@ function List (props: { project: Project, tasks: Task[] }) {
       return (
       <li className="list-group-item" key={task.id}>
         <div className="row">
-          <div className="col-10 task-name clickable" onClick={() => { openExternalLink(task) }}>{task.name}</div>
+          <div className="col-10 task-name clickable" onClick={() => { openExternalLink(task) }}>
+            {`#${task.task_number}: ${task.name}`}
+          </div>
           <div className="col-2 text-end">
             <a href="#" className="btn btn-primary btn-sm" onClick={() => { showTimeReport(task) }}>
               <i className="bi-stopwatch"></i>

@@ -8,4 +8,5 @@ export default interface Task {
   project_id: number
   project?: Project
   time_records: TimeRecord[],
+  task_number: number
 }

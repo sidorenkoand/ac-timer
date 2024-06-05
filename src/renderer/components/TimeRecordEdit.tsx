@@ -76,7 +76,7 @@ const TimeRecordEdit = (props: { timeRecord: TimeRecord }) => {
         </div>
         <div className="mb-3 row">
           <label className="col-3">Task</label>
-          <div className="col-9">{mutableTimeRecord.task?.name}</div>
+          <div className="col-9">{`#${mutableTimeRecord.task?.task_number}: ${mutableTimeRecord.task?.name}`}</div>
         </div>
         <div className="mb-3 row">
           <label className="col-3">Description</label>

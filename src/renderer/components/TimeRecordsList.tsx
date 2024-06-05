@@ -126,7 +126,9 @@ const Item = (props: { project: Project, timeRecord: TimeRecord, task?: Task }) 
         {task
           ? (
           <div className="col-8">
-            <h6 className="task-name clickable" onClick={() => { openExternalLink(task) }}>{task.name}</h6>
+            <h6 className="task-name clickable" onClick={() => { openExternalLink(task) }}>
+              {`#${task.task_number}: ${task.name}`}
+            </h6>
           </div>
             )
           : ''}
