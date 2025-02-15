@@ -1,76 +1,13 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Timer</title>
-    <link rel="stylesheet" href="assets/css/materialize.css">
-    <link rel="stylesheet" href="assets/css/fonts.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--    <meta http-equiv="Content-Security-Policy" content="default-src 'self'">-->
+    <title>AC Timer</title>
 </head>
 <body>
-
-<header>
-    <!-- ko ifnot: errorMessage -->
-    <div class="row valign-wrapper light-blue lighten-5">
-        <div class="col s9">
-            <h5 data-bind="text: title"></h5>
-        </div>
-        <div class="col s3 right-align">
-            <div data-bind="visible: isAuth" style="display: none;">
-                <button class="btn teal lighten-3" type="button" name="action" data-bind="click: login.logout()">
-                    Logout
-                </button>
-            </div>
-        </div>
-    </div>
-    <!-- /ko -->
-    <!-- ko if: errorMessage -->
-    <div class="row valign-wrapper red lighten-1">
-        <div class="col s12">
-            <h5 data-bind="text: errorMessage"></h5>
-        </div>
-    </div>
-    <!-- /ko -->
-</header>
-
-<main></main>
-
-<!-- Insert this line above script imports  -->
-<script>if (typeof module === 'object') {
-    window.module = module;
-    module = undefined;
-}</script>
-
-<script src="assets/js/lib/jquery-3.3.1.min.js"></script>
-<script src="assets/js/lib/knockout-min.js"></script>
-<script src="assets/js/lib/knockout.validation.min.js"></script>
-<script src="assets/js/lib/materialize.js"></script>
-<script src="assets/js/timer.js"></script>
-<script src="assets/js/timer-login.js"></script>
-<script src="assets/js/timer-time-report.js"></script>
-<script src="assets/js/timer-task-list.js"></script>
-<script src="assets/js/timer-track-time.js"></script>
-<script src="assets/js/timer-request.js"></script>
-<script src="assets/js/timer-time-converter.js"></script>
-
-<!-- Insert this line after script imports -->
-<script>if (window.module) module = window.module;</script>
-
-<script type="text/javascript">
-    $.when(
-        $.ajax("templates/login.html"),
-        $.ajax("templates/time-report.html"),
-        $.ajax("templates/task-list.html"),
-        $.ajax("templates/track-time.html")
-    ).done(function(){
-        for(i = 0; i < arguments.length; i++ ){
-            $('body>main').append(arguments[i][0]);
-        }
-
-        ko.applyBindings(timer);
-        timer.init();
-    });
-</script>
-
+    <div id="root" class="container-fluid flex-column"></div>
+    <script type="module" src="/src/renderer/main.tsx"></script>
 </body>
 </html>

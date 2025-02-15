@@ -1,6 +1,5 @@
 node_modules
 .idea/
-timer-linux-x64
-timer-win32-x64
-timer-darwin-x64
-timer-mas-x64
+.vite
+package-lock.json
+out
